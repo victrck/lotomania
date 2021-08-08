@@ -47,7 +47,6 @@ def gerarListaIndices(lista_quant_numeros_linha):
 def verificacaoColunaQuant(lista_index_numeros_linha):
 	for i in range(10):
 		quant_sum = sum(x.count(i) for x in lista_index_numeros_linha)
-		# print(quant_sum)
 		if(quant_sum > 6):		
 			return True		
 	return False
@@ -61,31 +60,11 @@ def gerarListaVerificadas(lista_quant_numeros_linha):
 
 
 def verificarSeqColuna(sequencia_coluna, lista_quant_numeros_linha):
-	# print(sequencia_coluna)
 	numero = 0
 	lista_final = []
 	lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
 	while(testadorSimples(lista_final)):
 		lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
-	# flag = True
-	# numero = 0
-	# cont= 0
-	# print(lista_final)
-	# while(flag):
-	# 	for x in lista_final:
-	# 		if numero in x:
-	# 			cont += 1
-	# 		else:
-	# 			cont = 0
-	# 		if cont > 3:
-	# 			lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
-	# 	flag = False		
-		# for i in range(len(sequencia_coluna) - 3):
-		# 	if sequencia_coluna[i]  == sequencia_coluna[i + 1] == sequencia_coluna[i + 2]  == sequencia_coluna[i + 3]:
-		# 		lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
-		# 		# print("tem sequencia")
-		# flag = False
-		
 	return lista_final
 
 def testadorSimples(lista):
@@ -108,13 +87,13 @@ def geradorDeDinheiro():
 	lista_verif_colunas = []
 	bilhete_premiado = []
 	sequencia_coluna=[]
-
 	i = 0
 	acumulador = 0
 	linha = 0 
 	coluna = 0
 
 	lista_quant_numeros_linha, acumulador = geradoraleatorio()
+	
 	while(acumulador > 50):
 		lista_quant_numeros_linha, acumulador = geradoraleatorio()	
 
@@ -127,10 +106,7 @@ def geradorDeDinheiro():
 			lista_quant_numeros_linha[i] = lista_quant_numeros_linha[i] + 1
 			quant_numeros_totais_faltando = quant_numeros_totais_faltando - 1
 
-
 	lista_verif_colunas = []
-
-
 	lista_index_numeros_linha = gerarListaVerificadas(lista_quant_numeros_linha)
 	
 
@@ -139,15 +115,11 @@ def geradorDeDinheiro():
 		quant = sum(x.count(i) for x in lista_index_numeros_linha)
 		lista_verif_colunas.append(quant)
 
-
-
-
 	for x in range(10):
 		for y in range(10):
 			try:
 				sequencia_coluna.append(lista_index_numeros_linha[y][x])
 			except Exception as e:
-				# print("Não Existe")
 				pass
 	
 	lista_index_numeros_linha = verificarSeqColuna(sequencia_coluna, lista_quant_numeros_linha)
@@ -166,13 +138,10 @@ def geradorDeDinheiro():
 		with open(nome_arquivo + ".txt") as file:
 			for line in file:
 				if((str(bilhete_premiado) + "\n") == line):
-					# print("DEU IGUAL KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
 					lista_index_numeros_linha = geradorDeDinheiro()
 	except Exception as e:
 		pass			
 	return lista_index_numeros_linha
-
-
 
 quant_bilhetes = input("Digite a quantidade de bilhetes: ")
 nome_arquivo = input("Digite o nome do arquivo: ")
@@ -184,11 +153,11 @@ for quant_bilhe in range(int(quant_bilhetes)):
 	lista_verif_colunas = []
 	bilhete_premiado = []
 	sequencia_coluna=[]
-
 	i = 0
 	acumulador = 0
 	linha = 0 
 	coluna = 0
+
 	lista_index_numeros_linha = geradorDeDinheiro()
 
 	for i in lista_index_numeros_linha:
@@ -203,24 +172,9 @@ for quant_bilhe in range(int(quant_bilhetes)):
 		linha += 1
 
 	bilhete_premiado.sort()
-	
-	# bilhete_premiado = [2, 3, 4, 6, 7, 9, 10, 11, 15, 16, 18, 19, 21, 22, 28, 29, 34, 35, 38, 41, 43, 46, 47, 48, 50, 51, 52, 53, 55, 57, 59, 63, 64, 66, 68, 73, 74, 75, 81, 82, 84, 85, 86, 88, 89, 92, 93, 95, 96, 97]
-	# try:
-	# 	with open(nome_arquivo + ".txt") as file:
-	# 		for line in file:
-	# 			print(line)
-	# 			if((str(bilhete_premiado) + "\n") == line):
-	# 				lista_index_numeros_linha = geradorDeDinheiro()
-	# except Exception as e:
-	# 	pass
-	
-
 	arquivo = open(nome_arquivo + ".txt", "a")
 	arquivo.write("BILHETE " + str(quant_bilhe+1) + "\n")
 	arquivo.write(str(bilhete_premiado) + "\n"+ "\n")
-	# arquivo = open(nome_arquivo + ".txt", "a")
-	# arquivo.write(str(bilhete_premiado) + "\n"+ "\n")
-	# print(bilhete_premiado)
 
 print("BILHETE GERADO COM SUCESSO!!!")
 print("BOA SORTE")
