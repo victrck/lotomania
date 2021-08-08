@@ -2,7 +2,6 @@ import numpy as np
 import random  as rd
 
 
-
 lista_quant_numeros_linha = []
 lista_index_numeros_linha =[]
 lista_auxiliar_sequencia_coluna = []
@@ -25,6 +24,16 @@ def geradorIndices(quant_numeros_linha):
 				break
 		else:
 			return index_numeros_linha
+
+def geradoraleatorio():
+	lista = []
+	ac = 0
+	for x in range(10):
+		aux = rd.randint(3, 7)
+		ac += aux
+		lista.append(aux)
+	return lista, ac
+
 
 def gerarListaIndices(lista_quant_numeros_linha):
 	lista_index_numeros_linha = []
@@ -52,16 +61,44 @@ def gerarListaVerificadas(lista_quant_numeros_linha):
 
 
 def verificarSeqColuna(sequencia_coluna, lista_quant_numeros_linha):
+	# print(sequencia_coluna)
+	numero = 0
 	lista_final = []
 	lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
-	flag = True
-	while(flag):
-		for i in range(len(sequencia_coluna) - 3):
-			if sequencia_coluna[i]  == sequencia_coluna[i + 1] == sequencia_coluna[i + 2]  == sequencia_coluna[i + 3]:
-				lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
-				# print("tem sequencia")
-		flag = False
+	while(testadorSimples(lista_final)):
+		lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
+	# flag = True
+	# numero = 0
+	# cont= 0
+	# print(lista_final)
+	# while(flag):
+	# 	for x in lista_final:
+	# 		if numero in x:
+	# 			cont += 1
+	# 		else:
+	# 			cont = 0
+	# 		if cont > 3:
+	# 			lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
+	# 	flag = False		
+		# for i in range(len(sequencia_coluna) - 3):
+		# 	if sequencia_coluna[i]  == sequencia_coluna[i + 1] == sequencia_coluna[i + 2]  == sequencia_coluna[i + 3]:
+		# 		lista_final = gerarListaVerificadas(lista_quant_numeros_linha)
+		# 		# print("tem sequencia")
+		# flag = False
+		
 	return lista_final
+
+def testadorSimples(lista):
+	cont = 0
+	for numero in range(1,10):
+		for x in lista:
+			if numero in x:
+				cont += 1
+			else:
+				cont = 0
+			if cont > 3:
+				return True
+	return False
 
 
 def geradorDeDinheiro():
@@ -77,24 +114,10 @@ def geradorDeDinheiro():
 	linha = 0 
 	coluna = 0
 
+	lista_quant_numeros_linha, acumulador = geradoraleatorio()
+	while(acumulador > 50):
+		lista_quant_numeros_linha, acumulador = geradoraleatorio()	
 
-	for x in range(10):
-		quant_numeros_totais_faltando = 50 - acumulador
-		if(acumulador < 50):
-			if(acumulador < 50 and (quant_numeros_totais_faltando <= 7) and (quant_numeros_totais_faltando >= 3)):
-				quant_numeros_linha = rd.randint(3, quant_numeros_totais_faltando)
-				lista_quant_numeros_linha.append(quant_numeros_linha)
-				acumulador = quant_numeros_linha + acumulador
-				break;
-			else:
-				if(acumulador >= 48):
-					break
-				else:
-					quant_numeros_linha = rd.randint(3, 7)
-					lista_quant_numeros_linha.append(quant_numeros_linha)
-					acumulador = quant_numeros_linha + acumulador
-		else:
-			break
 
 	quant_numeros_totais_faltando = 50 - acumulador;
 
@@ -126,7 +149,7 @@ def geradorDeDinheiro():
 			except Exception as e:
 				# print("Não Existe")
 				pass
-		
+	
 	lista_index_numeros_linha = verificarSeqColuna(sequencia_coluna, lista_quant_numeros_linha)
 	for i in lista_index_numeros_linha:
 		for x in i:
@@ -198,3 +221,6 @@ for quant_bilhe in range(int(quant_bilhetes)):
 	# arquivo = open(nome_arquivo + ".txt", "a")
 	# arquivo.write(str(bilhete_premiado) + "\n"+ "\n")
 	# print(bilhete_premiado)
+
+print("BILHETE GERADO COM SUCESSO!!!")
+print("BOA SORTE")
